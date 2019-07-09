@@ -14,10 +14,10 @@ pipeline {
         stage ('Build') {
             steps {
                 echo "Run build..."
-                    sh 'mvn clean package'
-                    sh 'mvn compile'
-                    sh 'mvn test'
-                    sh 'mvn install'
+                    mvn clean package
+                    mvn compile
+                    mvn test
+                    mvn install
             }
         } 
         stage ('Deploy') {
