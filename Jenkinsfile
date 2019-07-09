@@ -15,7 +15,7 @@ pipeline {
         stage ('Build') {
             steps {            
                     echo "Run build..."
-                    sh 'mvn'
+                    mvn
             }
         } 
         stage ('Deploy') {
