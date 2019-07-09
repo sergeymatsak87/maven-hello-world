@@ -1,8 +1,10 @@
 pipeline {
-    agent any
-    tools {
-        maven 'maven-3.6.1'
-        jdk 'jdk8'
+    agent {
+       kubernetes {
+         containerTemplate {
+           name 'maven'
+        }
+      }
     }
     stages {
         stage ('Initialize') {
