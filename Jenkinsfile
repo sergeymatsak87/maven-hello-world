@@ -16,17 +16,7 @@ pipeline {
                 echo "Run build..."
                     sh 'mvn clean package'
                     sh 'mvn compile'
-            }
-        }
-        stage ('Test') {
-            steps {
-                echo "Run test..."
                     sh 'mvn test'
-            }
-        }     
-        stage ('Install') {
-            steps {
-                echo "Run install..."
                     sh 'mvn install'
             }
         } 
