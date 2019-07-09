@@ -12,7 +12,7 @@ metadata:
 spec:
   containers:
   - name: maven
-    image: maven:3.6.0-jdk-11-slim
+    image: maven:3.3.9-jdk-8-alpine
     command: ["cat"]
     tty: true
 """
