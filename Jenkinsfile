@@ -1,5 +1,6 @@
 pipeline {
     agent {
+        label 'maven_kube'
         kubernetes {
           label 'maven_kube'
           containerTemplate {
