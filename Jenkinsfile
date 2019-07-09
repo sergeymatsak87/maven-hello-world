@@ -1,12 +1,9 @@
 pipeline {
-    agent any
-    stages {
-        stage ('compile') {
-            agent {
-                kubernetes {
-                    label 'jenkins_slave_maven'
-                    defaultContainer 'maven'
-                    yaml """
+    agent {
+          kubernetes {
+             label 'jenkins_slave_maven'
+             DefaultContainer 'jnlp'
+             yaml """
                         apiVersion: v1
                         kind: Pod
                         metadata:
@@ -18,9 +15,11 @@ pipeline {
                             image: maven:3.6.0-jdk-11-slim
                             command: ["cat"]
                             tty: true
-                        """
-                }
-            }
+                  """
+          }
+    }
+    stages {
+        stage ('compile') {
             steps {
                 sh 'set'
                 sh 'pwd'
