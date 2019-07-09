@@ -13,24 +13,35 @@ pipeline {
                 '''
             }
         }
-
         stage ('Build') {
+            steps {
+                echo "Run build..."
+                    sh 'mvn clean package'
+                    sh 'mvn compile'
+            }
+        }
+        stage ('Test') {
+            steps {
+                echo "Run test..."
+                    sh 'mvn test'
+            }
+        }     
+        stage ('Install') {
+            steps {
+                echo "Run install..."
+                    sh 'mvn install'
+            }
+        } 
+        stage ('Deploy') {
             steps {
                 parallel (
                    a: {
-                    echo "Build on Linux"
-                    sh 'mvn -Dmaven.test.failure.ignore=true install'
+                    echo "Deploy on Linux"
                    },
                    b: {
-                    echo "Build on Windows"
-                    sh 'mvn -Dmaven.test.failure.ignore=true install'
+                    echo "Deploy on Windows"
                    }
                 )
-            }
-            post {
-                success {
-                    junit 'target/surefire-reports/**/*.xml' 
-                }
             }
         }
     }
