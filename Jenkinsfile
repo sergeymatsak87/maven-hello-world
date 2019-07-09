@@ -1,15 +1,17 @@
 pipeline {
     agent {
         kubernetes {
-          name 'jenkins-maven-slave'
           label 'maven_kube'
-          containerTemplate {
-            name 'maven'
-            image 'maven:3.3.9-jdk-8-alpine'
-            workingDir '/home/jenkins'
-            ttyEnabled true
-            command 'cat'
-           }
+          defaultContainer 'jnlp'
+          yaml """
+              spec:
+                  containers:
+                  - name: maven
+                    image: maven:3.3.9-jdk-8-alpine
+                    command:
+                    - cat
+                    tty: true
+                """
         }
     }
     stages {
