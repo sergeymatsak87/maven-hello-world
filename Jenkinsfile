@@ -15,7 +15,13 @@ pipeline {
         stage ('Build') {
             steps {            
                     echo "Run build..."
-                    bash 'mvn clean'
+                    sh 'set'
+                    container('maven') {
+                        sh 'mvn -version'
+                        sh 'mvn clean'
+                        sh 'mvn compile'
+                        sh 'mvn install'
+                    }
             }
         } 
         stage ('Deploy') {
