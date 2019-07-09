@@ -1,6 +1,12 @@
 pipeline {
     agent {
-        label "maven_kube"
+        kubernetes {
+          containerTemplate {
+            name 'maven'
+            image 'maven:3.3.9-jdk-8-alpine'
+            ttyEnabled true
+          }
+        }
     }
     stages {
         stage ('Initialize') {
