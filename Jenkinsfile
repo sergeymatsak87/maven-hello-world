@@ -12,14 +12,6 @@ pipeline {
         }
     }
     stages {
-#        stage ('Initialize') {
-#            steps {
-#                container('jnlp') {
-#                    sh 'echo "PATH = ${PATH}"'
-#                    sh 'echo "M2_HOME = ${M2_HOME}"'
-#                }
-#            }
-#        }
         stage ('Build') {
             steps {
                 container('maven') {                
