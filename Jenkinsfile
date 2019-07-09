@@ -1,6 +1,5 @@
 pipeline {
     agent {
-        label 'maven_kube'
         kubernetes {
           label 'maven_kube'
           containerTemplate {
@@ -21,11 +20,13 @@ pipeline {
         }
         stage ('Build') {
             steps {
-                echo "Run build..."
-                    sh 'mvn clean package'
-                    sh 'mvn compile'
-                    sh 'mvn test'
-                    sh 'mvn install'
+                container('maven') {                
+                    echo "Run build..."
+                        sh 'mvn clean package'
+                        sh 'mvn compile'
+                        sh 'mvn test'
+                        sh 'mvn install'
+                }
             }
         } 
         stage ('Deploy') {
