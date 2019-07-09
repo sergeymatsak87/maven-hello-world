@@ -4,6 +4,8 @@ pipeline {
           label 'maven_kube'
           defaultContainer 'jnlp'
           yaml """
+              apiVersion: v1
+              kind: Pod
               spec:
                   containers:
                   - name: maven
