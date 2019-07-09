@@ -2,20 +2,7 @@ pipeline {
     agent {
         kubernetes {
             label 'jenkins_slave_maven'
-            defaultContainer 'maven'
-            yaml """
-apiVersion: v1
-kind: Pod
-metadata:
-  labels:
-    job: build-maven
-spec:
-  containers:
-  - name: maven
-    image: jenkins/jnlp-agent-maven
-    command: ["cat"]
-    tty: true
-"""
+            defaultContainer 'jnlp'
         }
     }
     stages {        
@@ -24,7 +11,7 @@ spec:
                 sh 'set'
                 sh 'pwd'
                 sh 'ls -la'
-                container('maven') {
+                container('jnlp') {
                     sh 'pwd'
                     sh 'mvn -f my-app/pom.xml clean compile test-compile'
                 }
