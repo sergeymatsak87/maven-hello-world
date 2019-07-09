@@ -1,17 +1,13 @@
 pipeline {
     agent {
         kubernetes {
-          label 'mypod'
-          yaml """
-            apiVersion: v1
-            kind: Pod
-            spec:
-              containers:
-              - name: maven
-                image: maven:3.3.9-jdk-8-alpine
-                command: ['cat']
-                tty: true
-            """
+          label 'maven_kube'
+          containerTemplate {
+            name 'maven'
+            image 'maven:3.3.9-jdk-8-alpine'
+            ttyEnabled true
+            command 'cat'
+           }
         }
     }
     stages {
