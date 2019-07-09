@@ -5,6 +5,7 @@ pipeline {
           containerTemplate {
             name 'maven'
             image 'maven:3.3.9-jdk-8-alpine'
+            workingDir '/var/jenkins_home'
             ttyEnabled true
             command 'cat'
            }
