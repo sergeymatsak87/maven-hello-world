@@ -24,6 +24,7 @@ spec:
                 kubernetes {
                     defaultContainer 'maven'
                 }
+            }
             steps {
                 sh 'set'
                 sh 'pwd'
