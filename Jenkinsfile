@@ -12,22 +12,22 @@ pipeline {
         }
     }
     stages {
-        stage ('Initialize') {
-            steps {
-                container('jnlp') {
-                    sh 'echo "PATH = ${PATH}"'
-                    sh 'echo "M2_HOME = ${M2_HOME}"'
-                }
-            }
-        }
+#        stage ('Initialize') {
+#            steps {
+#                container('jnlp') {
+#                    sh 'echo "PATH = ${PATH}"'
+#                    sh 'echo "M2_HOME = ${M2_HOME}"'
+#                }
+#            }
+#        }
         stage ('Build') {
             steps {
                 container('maven') {                
                     echo "Run build..."
-                        sh 'mvn clean package'
-                        sh 'mvn compile'
-                        sh 'mvn test'
-                        sh 'mvn install'
+                        sh 'mvn -f my-app/pom.xml clean package'
+                        sh 'mvn -f my-app/pom.xml compile'
+                        sh 'mvn -f my-app/pom.xml test'
+                        sh 'mvn -f my-app/pom.xml install'
                 }
             }
         } 
