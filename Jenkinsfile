@@ -23,7 +23,7 @@ spec:
     stages {
         stage ('compile') {
             steps {
-                container('maven') {
+                container('jnlp') {
                     sh 'mvn clean compile test-compile'
                 }
             }
