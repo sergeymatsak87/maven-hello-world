@@ -24,7 +24,7 @@ pipeline {
                     sh 'mvn clean package'
                     sh 'mvn compile'
                     sh 'mvn test'
-                    sh 'mvn install[
+                    sh 'mvn install'
             }
         } 
         stage ('Deploy') {
