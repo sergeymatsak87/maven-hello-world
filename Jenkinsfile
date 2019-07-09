@@ -30,7 +30,7 @@ spec:
         stage ('unit test') {
             steps {
                 container('maven') {
-                    sh 'mvn test'
+                    sh('mvn test')
                 }
             }
         }
