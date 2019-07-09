@@ -1,7 +1,7 @@
 pipeline {
     agent {
         kubernetes {
-          label 'maven_kube'
+          label 'jenkins_kube'
           containerTemplate {
             name 'maven'
             image 'maven:3.3.9-jdk-8-alpine'
