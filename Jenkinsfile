@@ -1,34 +1,60 @@
 pipeline {
+
     agent {
         kubernetes {
-          label 'maven_kube'
-          defaultContainer 'jnlp'
-          yaml """
-              apiVersion: v1
-              kind: Pod
-              spec:
-                  containers:
-                  - name: maven
-                    image: maven:3.3.9-jdk-8-alpine
-                    tty: true
-                """
+            label 'jenkins_slave_maven'
+            defaultContainer 'jnlp'
+            yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    job: build-maven
+spec:
+  containers:
+  - name: maven
+    image: maven:3.6.0-jdk-11-slim
+    command: ["cat"]
+    tty: true
+"""
         }
     }
+
     stages {
-        stage ('Build') {
-            steps {            
-                    echo "Run build..."
-                    sh 'set'
-                    container('maven') {
-                        sh 'set'
-                        sh 'mvn -version'
-                        sh 'mvn clean'
-                        sh 'mvn compile'
-                        sh 'mvn install'
-                    }
+        stage ('compile') {
+            steps {
+                container('maven') {
+                    sh 'mvn clean compile test-compile'
+                }
             }
-        } 
-        stage ('Deploy') {
+        }
+        stage ('unit test') {
+            steps {
+                container('maven') {
+                    sh 'mvn test'
+                }
+            }
+        }
+        stage ('integration test') {
+            steps {
+                container ('maven') {
+                    sh 'mvn verify'
+                }
+            }
+        }
+        stage ('install') {
+            steps {
+                container('maven') {
+                    sh "mvn install"
+                }
+            }
+        }
+        stage ('deploy to env') {
+            when {
+                expression {
+                    branch == 'master'
+                }
+            }
             steps {
                 parallel (
                    a: {
