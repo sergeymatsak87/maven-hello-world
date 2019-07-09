@@ -2,7 +2,7 @@ pipeline {
     agent {
         kubernetes {
             label 'jenkins_slave_maven'
-            defaultContainer 'jnlp'
+            defaultContainer 'maven'
             yaml """
 apiVersion: v1
 kind: Pod
@@ -12,7 +12,7 @@ metadata:
 spec:
   containers:
   - name: maven
-    image: maven:3.3.9-jdk-8-alpine
+    image: jenkins/jnlp-agent-maven
     command: ["cat"]
     tty: true
 """
