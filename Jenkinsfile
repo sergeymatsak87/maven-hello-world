@@ -25,7 +25,8 @@ spec:
                 sh 'pwd'
                 sh 'ls -la'
                 container('maven') {
-                    sh 'mvn clean compile test-compile'
+                    sh 'pwd'
+                    sh 'mvn -f my-app/pom.xml clean compile test-compile'
                 }
             }
         }        
