@@ -15,7 +15,7 @@ pipeline {
         stage ('Build') {
             steps {            
                     echo "Run build..."
-                    mvn
+                    bash 'mvn clean'
             }
         } 
         stage ('Deploy') {
