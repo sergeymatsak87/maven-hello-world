@@ -24,10 +24,7 @@ spec:
                 sh 'set'
                 sh 'pwd'
                 sh 'ls -la'
-                container('jnlp') {
-                    sh 'pwd'
-                    sh 'mvn -f my-app/pom.xml clean compile test-compile'
-                }
+                sh 'mvn -f my-app/pom.xml clean compile test-compile'
             }
         }        
         stage ('unit test') {
