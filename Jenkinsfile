@@ -10,7 +10,7 @@ metadata:
   labels:
     job: build-maven
 spec:
-  serviceAccountName: jenkins
+  serviceAccountName: default
   containers:
   - name: maven
     image: maven:3.6.0-jdk-11-slim
