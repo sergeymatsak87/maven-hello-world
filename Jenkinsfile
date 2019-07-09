@@ -1,8 +1,6 @@
 pipeline {
     agent {
-        kubernetes {
-           label "maven_kube"
-        }
+       label "maven_kube"
     }
     stages {
         stage ('Initialize') {
