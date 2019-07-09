@@ -24,13 +24,15 @@ spec:
                 sh 'set'
                 sh 'pwd'
                 sh 'ls -la'
-                sh 'mvn -f my-app/pom.xml clean compile test-compile'
+                container('maven') {
+                   sh('mvn -f my-app/pom.xml clean compile test-compile')
+                }
             }
         }        
         stage ('unit test') {
             steps {
                 container('maven') {
-                    sh('mvn test')
+                    sh 'mvn test'
                 }
             }
         }
