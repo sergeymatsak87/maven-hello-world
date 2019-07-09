@@ -7,6 +7,7 @@ pipeline {
             image 'maven:3.3.9-jdk-8-alpine'
             workingDir '/home/jenkins'
             ttyEnabled true
+            command 'cat'
            }
         }
     }
