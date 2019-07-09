@@ -16,7 +16,7 @@ pipeline {
 
         stage ('Build') {
             steps {
-                parallel {
+                parallel (
                    a: {
                     echo "Build on Linux"
                     sh 'mvn -Dmaven.test.failure.ignore=true install'
@@ -25,7 +25,7 @@ pipeline {
                     echo "Build on Windows"
                     sh 'mvn -Dmaven.test.failure.ignore=true install'
                    }
-                }
+                )
             }
             post {
                 success {
