@@ -21,6 +21,9 @@ spec:
     stages {        
         stage ('compile') {
             steps {
+                sh 'set'
+                sh 'pwd'
+                sh 'ls -la'
                 container('maven') {
                     sh 'mvn clean compile test-compile'
                 }
