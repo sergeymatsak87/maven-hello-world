@@ -1,8 +1,6 @@
 pipeline {
-    agent any
-    tools { 
-       maven 'maven-3.6.1' 
-       jdk 'jdk8' 
+    agent {
+        label "maven_kube"
     }
     stages {
         stage ('Initialize') {
