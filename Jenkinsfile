@@ -19,11 +19,11 @@ spec:
         }
     }
     stages {
-        agent {
-        kubernetes {
-            defaultContainer 'maven'
-        }
         stage ('compile') {
+            agent {
+                kubernetes {
+                    defaultContainer 'maven'
+                }
             steps {
                 sh 'set'
                 sh 'pwd'
