@@ -1,5 +1,4 @@
 pipeline {
-
     agent {
         kubernetes {
             label 'jenkins_slave_maven'
