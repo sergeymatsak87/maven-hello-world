@@ -1,5 +1,7 @@
 pipeline {
-  agent any
+  agent {
+    label 'jnlp_jenkins_slave'
+  }
   stages {
     stage('Run maven') {
       steps {
