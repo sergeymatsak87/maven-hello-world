@@ -1,6 +1,7 @@
 pipeline {
   agent {
     kubernetes {
+      label 'jenkins_slave'
       yamlFile 'KubernetesPod.yaml'
     }
   }
