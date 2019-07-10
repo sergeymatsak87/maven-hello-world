@@ -1,4 +1,4 @@
-def label = UUID.randomUUID().toString()
+def label = 'jenkins_slave_maven'
 
   podTemplate(label: label, yaml: """
 apiVersion: v1
