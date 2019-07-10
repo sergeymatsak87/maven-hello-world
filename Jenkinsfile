@@ -1,29 +1,20 @@
 def label = 'jenkins_slave_maven'
 
   podTemplate(label: label, yaml: """
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: maven
-    command:
-    - cat
-    tty: true
-    env:
-    - name: BUILD_NUMBER
-      value: ${env.BUILD_NUMBER}
-    - name: BRANCH_NAME
-      value: ${env.BRANCH_NAME}
-    - name: _JAVA_OPTIONS
-      value: -Xmx300M
-    image: maven:3.6.1-jdk-8
-    resources:
-      limits:
-        memory: 1500Mi
-      requests:
-        cpu: 100m
-        memory: 1500Mi
-    """) {
+    apiVersion: v1
+    kind: Pod
+    spec:
+      serviceAccountName: jenkins
+      containers:
+      - name: maven
+        command:
+        - cat
+        tty: true
+        env:
+        - name: _JAVA_OPTIONS
+          value: -Xmx300M
+        image: maven:3.6.1-jdk-8
+        """) {
 
     node(label) {
       stage('Package') {
