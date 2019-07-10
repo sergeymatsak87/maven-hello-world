@@ -1,14 +1,22 @@
-def POD_LABEL = 'maven_kube'
-
-podTemplate(containers: [
-  containerTemplate(name: 'maven', image: 'maven:3.3.9-jdk-8-alpine', ttyEnabled: true, command: 'cat')
-  ]) {
-
-  node(POD_LABEL) {
-    stage('Build a Maven project') {
-      git 'https://github.com/jenkinsci/kubernetes-plugin.git'
-      container('maven') {
-          sh 'mvn -B clean package'
+pipeline {
+  agent {
+    kubernetes {
+      yamlFile 'KubernetesPod.yaml'
+    }
+  }
+  stages {
+    stage('Run maven') {
+      steps {
+        sh 'set'
+        sh "echo OUTSIDE_CONTAINER_ENV_VAR = ${CONTAINER_ENV_VAR}"
+        container('maven') {
+          sh 'echo MAVEN_CONTAINER_ENV_VAR = ${CONTAINER_ENV_VAR}'
+          sh 'mvn -version'
+        }
+        container('busybox') {
+          sh 'echo BUSYBOX_CONTAINER_ENV_VAR = ${CONTAINER_ENV_VAR}'
+          sh '/bin/busybox'
+        }
       }
     }
   }
