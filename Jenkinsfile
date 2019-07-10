@@ -5,10 +5,11 @@ podTemplate(label: 'mypod', containers: [
 
     node ('mypod') {
         stage('Build a Maven project') {
-            sh 'git clone --recursive https://github.com/kubernetes-client/java'
-            sh 'cd java'
-            sh 'mvn install'
             container('maven') {
+                sh 'git clone --recursive https://github.com/kubernetes-client/java'
+                sh 'cd java'
+                sh 'mvn install'
+                sh 'cd ../'
                 sh 'mvn clean install'
             }
         }
