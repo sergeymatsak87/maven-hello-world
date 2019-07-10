@@ -1,10 +1,9 @@
-metadata:
-  labels:
-    some-label: some-label-value
+apiVersion: v1
+kind: Pod
 spec:
   containers:
   - name: jnlp
-    image: jenkins/jnlp-slave
+    image: jenkins:jnlp-slave
     env:
     - name: CONTAINER_ENV_VAR
       value: jnlp
