@@ -4,6 +4,7 @@ pipeline {
     stage('Run maven') {
       steps {
         sh 'set'
+        sh 'mvn clean'
       }
     }
   }
