@@ -1,40 +1,14 @@
-pipeline {
-  agent {
-    kubernetes {
-      label 'mypod'
-      defaultContainer 'jnlp'
-      yaml """
-apiVersion: v1
-kind: Pod
-metadata:
-  labels:
-    some-label: some-label-value
-spec:
-  serviceAccountName: jenkins
-  containers:
-  - name: maven
-    image: maven:alpine
-    command:
-    - cat
-    tty: true
-  - name: busybox
-    image: busybox
-    command:
-    - cat
-    tty: true
-"""
-    }
-  }
-  stages {
-    stage('Run maven') {
-      steps {
+podTemplate(label: 'mypod', containers: [
+    containerTemplate(name: 'maven', image: 'maven:3.3.9-jdk-8-alpine', ttyEnabled: true, command: 'cat'),
+    containerTemplate(name: 'jnlp', image: 'jenkinsci/jnlp-slave', args: '${computer.jnlpmac} ${computer.name}'),
+]) {
+
+    node ('mypod') {
+        stage 'Get a Maven project'
+        git 'https://github.com/jenkinsci/kubernetes-plugin.git'
         container('maven') {
-          sh 'mvn -version'
+            stage 'Build a Maven project'
+            sh 'mvn clean install'
         }
-        container('busybox') {
-          sh '/bin/busybox'
-        }
-      }
     }
-  }
 }
