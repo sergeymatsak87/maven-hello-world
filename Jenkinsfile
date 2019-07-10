@@ -4,9 +4,9 @@ podTemplate(label: 'mypod', containers: [
 ]) {
 
     node ('mypod') {
-        container('maven') {
-            stage 'Build a Maven project'
-            sh 'mvn clean install'
-        }
+        stage 'Build a Maven project'
+            container('maven') {
+                sh 'mvn clean install'
+            }
     }
 }
