@@ -27,19 +27,9 @@ spec:
 
     node(label) {
       stage('Package') {
-        try {
           container('maven') {
             sh 'mvn clean compile test-compile install -Dmaven.test.skip=true'
           }
-        }
-      }
-      stage('Test') {
-        try {
-          container('maven') {
-            sh 'mvn -B -ntp test -DconnectorHost=0.0.0.0'
-          }
-        } finally {
-          junit '**/target/surefire-reports/**/*.xml'
         }
       }
     }
