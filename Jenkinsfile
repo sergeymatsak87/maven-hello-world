@@ -28,7 +28,7 @@ spec:
     node(label) {
       stage('Package') {
           container('maven') {
-            sh 'mvn clean compile test-compile install -Dmaven.test.skip=true'
+            sh 'mvn clean compile test-compile install'
           }
         }
       }
