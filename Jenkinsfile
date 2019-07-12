@@ -1,12 +1,36 @@
 pipeline {
   agent {
     kubernetes {
-      yamlFile 'KubernetesPod.yaml'
+      yaml """
+metadata:
+  namespace: jenkins
+  labels:
+    some-label: some-label-value
+    class: KubernetesDeclarativeAgentTest
+spec:
+  containers:
+  - name: jnlp
+    env:
+    - name: CONTAINER_ENV_VAR
+      value: jnlp
+  - name: maven
+    image: maven:3.3.9-jdk-8-alpine
+    command:
+    - cat
+    tty: true
+    env:
+    - name: CONTAINER_ENV_VAR
+      value: maven
+  - name: busybox
+    image: busybox
+    command:
+    - cat
+    tty: true
+    env:
+    - name: CONTAINER_ENV_VAR
+      value: busybox
+"""
     }
-  }
-  options {
-    // Because there's no way for the container to actually get at the git repo on the disk of the box we're running on.
-    skipDefaultCheckout(true)
   }
   stages {
     stage('Run maven') {
