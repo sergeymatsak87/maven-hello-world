@@ -1,5 +1,6 @@
 pipeline {
   agent {
+    label "maven"
     kubernetes {
       yamlFile 'KubernetesPod.yaml'
     }
