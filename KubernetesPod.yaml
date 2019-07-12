@@ -1,13 +1,10 @@
-apiVersion: v1
-kind: Pod
 metadata:
   labels:
-    label: maven
+    some-label: some-label-value
+    class: KubernetesDeclarativeAgentTest
 spec:
-  serviceAccount: jenkins
   containers:
   - name: jnlp
-    image: jenkins/jnlp-slave
     env:
     - name: CONTAINER_ENV_VAR
       value: jnlp
